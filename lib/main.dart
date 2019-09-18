@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'models/plant_model.dart';
+
 void main() => runApp(MaterialApp(
       home: MyHomePage(),
     ));
@@ -13,10 +15,51 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+  PageController _pageController;
+  int _selectedPage = 0;
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(initialIndex: 0, length: 5, vsync: this);
+    _pageController = PageController(initialPage: 0, viewportFraction: 0.8);
+  }
+
+  _plantSelector(int index) {
+    return Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+              color: Color(0xFF32A060),
+              borderRadius: BorderRadius.circular(20.0)),
+          margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 30.0),
+          child: Stack(
+            children: <Widget>[
+              Center(
+                child: Hero(
+                  tag: plants[index].imageUrl,
+                  child: Image(
+                    height: 280.0,
+                    width: 280.0,
+                    image: AssetImage('assets/images/plant$index.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 30.0,
+                right: 30.0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[],
+                ),
+              )
+            ],
+          ),
+        )
+      ],
+    );
   }
 
   @override
@@ -93,7 +136,26 @@ class _MyHomePageState extends State<MyHomePage>
                           fontSize: 16.0, fontWeight: FontWeight.bold)),
                 ),
               ],
-            )
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Container(
+              height: 500.0,
+              width: double.infinity,
+              child: PageView.builder(
+                controller: _pageController,
+                onPageChanged: (int index) {
+                  setState(() {
+                    _selectedPage = index;
+                  });
+                },
+                itemCount: plants.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return _plantSelector(index);
+                },
+              ),
+            ),
           ],
         ),
       ),
