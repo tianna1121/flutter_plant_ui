@@ -52,10 +52,60 @@ class _MyHomePageState extends State<MyHomePage>
                 right: 30.0,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[],
+                  children: <Widget>[
+                    Text(
+                      'FROM',
+                      style: TextStyle(color: Colors.white, fontSize: 15.0),
+                    ),
+                    Text(
+                      '\$${plants[index].price}',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
                 ),
-              )
+              ),
+              Positioned(
+                left: 30.0,
+                bottom: 40.0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      plants[index].category.toUpperCase(),
+                      style: TextStyle(color: Colors.white, fontSize: 15.0),
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Text(
+                      plants[index].name,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+              ),
             ],
+          ),
+        ),
+        Positioned(
+          bottom: 4.0,
+          child: RawMaterialButton(
+            padding: EdgeInsets.all(15.0),
+            shape: CircleBorder(),
+            elevation: 2.0,
+            fillColor: Colors.black,
+            child: Icon(
+              Icons.add_shopping_cart,
+              color: Colors.white,
+              size: 30.0,
+            ),
+            onPressed: () {},
           ),
         )
       ],
