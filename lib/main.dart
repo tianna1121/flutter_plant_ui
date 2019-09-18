@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_plant_ui/pages/plant_screen.dart';
 
 import 'models/plant_model.dart';
 
@@ -42,89 +43,97 @@ class _MyHomePageState extends State<MyHomePage>
           ),
         );
       },
-      child: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-                color: Color(0xFF32A060),
-                borderRadius: BorderRadius.circular(20.0)),
-            margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 30.0),
-            child: Stack(
-              children: <Widget>[
-                Center(
-                  child: Hero(
-                    tag: plants[index].imageUrl,
-                    child: Image(
-                      height: 280.0,
-                      width: 280.0,
-                      image: AssetImage('assets/images/plant$index.png'),
-                      fit: BoxFit.cover,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => PlantScreen(plant: plants[index])));
+        },
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                  color: Color(0xFF32A060),
+                  borderRadius: BorderRadius.circular(20.0)),
+              margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 30.0),
+              child: Stack(
+                children: <Widget>[
+                  Center(
+                    child: Hero(
+                      tag: plants[index].imageUrl,
+                      child: Image(
+                        height: 280.0,
+                        width: 280.0,
+                        image: AssetImage('assets/images/plant$index.png'),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-                Positioned(
-                  top: 30.0,
-                  right: 30.0,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'FROM',
-                        style: TextStyle(color: Colors.white, fontSize: 15.0),
-                      ),
-                      Text(
-                        '\$${plants[index].price}',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ],
+                  Positioned(
+                    top: 30.0,
+                    right: 30.0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'FROM',
+                          style: TextStyle(color: Colors.white, fontSize: 15.0),
+                        ),
+                        Text(
+                          '\$${plants[index].price}',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Positioned(
-                  left: 30.0,
-                  bottom: 40.0,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        plants[index].category.toUpperCase(),
-                        style: TextStyle(color: Colors.white, fontSize: 15.0),
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      Text(
-                        plants[index].name,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ],
+                  Positioned(
+                    left: 30.0,
+                    bottom: 40.0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          plants[index].category.toUpperCase(),
+                          style: TextStyle(color: Colors.white, fontSize: 15.0),
+                        ),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        Text(
+                          plants[index].name,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            bottom: 4.0,
-            child: RawMaterialButton(
-              padding: EdgeInsets.all(15.0),
-              shape: CircleBorder(),
-              elevation: 2.0,
-              fillColor: Colors.black,
-              child: Icon(
-                Icons.add_shopping_cart,
-                color: Colors.white,
-                size: 30.0,
+                ],
               ),
-              onPressed: () {},
             ),
-          )
-        ],
+            Positioned(
+              bottom: 4.0,
+              child: RawMaterialButton(
+                padding: EdgeInsets.all(15.0),
+                shape: CircleBorder(),
+                elevation: 2.0,
+                fillColor: Colors.black,
+                child: Icon(
+                  Icons.add_shopping_cart,
+                  color: Colors.white,
+                  size: 30.0,
+                ),
+                onPressed: () {},
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -223,6 +232,26 @@ class _MyHomePageState extends State<MyHomePage>
                 },
               ),
             ),
+            Padding(
+              padding: EdgeInsets.all(30.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Description',
+                    style:
+                        TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    plants[_selectedPage].description,
+                    style: TextStyle(color: Colors.black87, fontSize: 16.0),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
